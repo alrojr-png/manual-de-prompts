@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manual de Prompts para Professores</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Baloo+2:wght@600;700;800&family=Nunito:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  *{margin:0; padding:0; box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Nunito',system-ui,sans-serif; color:#1A1A1A; font-size:16.5px; line-height:1.6;
+    background:#FFF7E6;
+    background-image:radial-gradient(#FFDD8A 1.5px, transparent 1.5px);
+    background-size:30px 30px;
+    padding:34px 18px 130px;
+    -webkit-print-color-adjust:exact; print-color-adjust:exact;
+  }
+  .wrap{max-width:760px; margin:0 auto;}
+
+  /* header */
+  .tag{display:inline-block; font-family:'Baloo 2'; font-weight:700; font-size:12.5px; letter-spacing:.4px;
+    background:#1A1A1A; color:#FFC93C; padding:5px 14px; border-radius:20px; transform:rotate(-1.5deg);}
+  h1{font-family:'Bangers',cursive; font-weight:400; letter-spacing:2px; line-height:.95;
+    font-size:clamp(40px,8vw,72px); margin:16px 0 6px;}
+  h1 .p{color:#FF6B6B; -webkit-text-stroke:0;}
+  .lead{font-size:18px; font-weight:600; color:#5a5348; max-width:620px;}
+
+  /* seção */
+  .sec{margin-top:44px;}
+  .shead{display:flex; align-items:center; gap:12px; margin-bottom:14px;}
+  .snum{flex:0 0 46px; height:46px; border:3px solid #1A1A1A; border-radius:12px;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Bangers',cursive; font-size:26px; box-shadow:3px 3px 0 #1A1A1A;}
+  .stitle{font-family:'Baloo 2'; font-weight:800; font-size:22px; line-height:1.05;}
+  .n-sun{background:#FFC93C;} .n-coral{background:#FF6B6B; color:#fff;} .n-teal{background:#20C4A8; color:#fff;} .n-grape{background:#9D8DF1; color:#fff;}
+
+  p{margin:10px 0;}
+  .big{font-size:17.5px;}
+  strong,b{font-weight:800;}
+
+  /* caixa de prompt / exemplo */
+  .prompt{background:#FFFBF0; border:3px solid #1A1A1A; border-radius:14px; padding:15px 17px;
+    margin:12px 0; box-shadow:4px 4px 0 #1A1A1A; font-size:15.5px; line-height:1.55;}
+  .prompt .lbl{font-family:'Baloo 2'; font-weight:800; font-size:12px; letter-spacing:.6px;
+    text-transform:uppercase; color:#8a8069; display:block; margin-bottom:6px;}
+  .ph{background:#FFE49E; border-radius:5px; padding:0 5px; font-weight:700; font-style:normal;}
+
+  /* comparação ruim/bom */
+  .cmp{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:14px 0;}
+  .cmp .box{border:3px solid #1A1A1A; border-radius:14px; padding:13px 15px; box-shadow:4px 4px 0 #1A1A1A; font-size:15px;}
+  .cmp .bad{background:#FFE0E0;} .cmp .good{background:#D6F5EF;}
+  .cmp .h{font-family:'Baloo 2'; font-weight:800; font-size:14px; display:block; margin-bottom:6px;}
+  .cmp .bad .h{color:#C0392B;} .cmp .good .h{color:#0E8C77;}
+  @media(max-width:560px){.cmp{grid-template-columns:1fr;}}
+
+  /* 7 elementos */
+  .els{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:14px 0;}
+  .el{border:3px solid #1A1A1A; border-radius:14px; padding:12px 14px; background:#fff; box-shadow:4px 4px 0 #1A1A1A;}
+  .el .k{font-family:'Baloo 2'; font-weight:800; font-size:16px;}
+  .el .q{font-size:14px; color:#6a6153; font-weight:600;}
+  .el .ex{font-size:13.5px; color:#8a8069; font-style:italic; margin-top:4px;}
+  @media(max-width:560px){.els{grid-template-columns:1fr;}}
+
+  .formula{background:#1A1A1A; color:#FFC93C; border-radius:14px; padding:16px; text-align:center;
+    font-family:'Baloo 2'; font-weight:800; font-size:16px; line-height:1.5; margin:14px 0; letter-spacing:.3px;}
+
+  /* regras / listas */
+  .rule{border-left:5px solid #FFC93C; padding:4px 0 4px 14px; margin:14px 0;}
+  .rule.c2{border-color:#FF6B6B;} .rule.c3{border-color:#20C4A8;} .rule.c4{border-color:#9D8DF1;} .rule.c5{border-color:#FFC93C;}
+  .rule .rt{font-family:'Baloo 2'; font-weight:800; font-size:16.5px;}
+
+  /* refine list */
+  .refine .item{margin:11px 0;}
+  .refine .cond{font-family:'Baloo 2'; font-weight:800; font-size:15px; color:#1A1A1A;}
+  .refine .say{background:#FFFBF0; border:2px dashed #D8C89A; border-radius:10px; padding:8px 12px; margin-top:4px; font-size:15px; font-style:italic;}
+
+  /* coringa */
+  .coringa{background:#FFF3CC; border:3px solid #1A1A1A; border-radius:16px; padding:18px; box-shadow:6px 6px 0 #1A1A1A; margin:14px 0;}
+  .coringa .line{margin:7px 0; font-size:15.5px;}
+  .coringa .k{font-family:'Baloo 2'; font-weight:800;}
+
+  /* oráculo */
+  .verbs{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:14px 0;}
+  .verb{border:3px solid #1A1A1A; border-radius:12px; padding:11px 13px; background:#fff; box-shadow:3px 3px 0 #1A1A1A;}
+  .verb .v{font-family:'Baloo 2'; font-weight:800; font-size:15px;}
+  .verb .t{font-size:13.5px; color:#6a6153;}
+  @media(max-width:560px){.verbs{grid-template-columns:1fr;}}
+
+  /* checklist */
+  .check{background:#fff; border:3px solid #1A1A1A; border-radius:14px; padding:16px 18px; box-shadow:4px 4px 0 #1A1A1A; margin:14px 0;}
+  .check .ci{display:flex; gap:10px; align-items:flex-start; margin:9px 0; font-weight:600;}
+  .check .cb{flex:0 0 22px; height:22px; border:2.5px solid #1A1A1A; border-radius:6px;}
+
+  /* hook workshop */
+  .hook{background:#D6F5EF; border:3px solid #1A1A1A; border-radius:14px; padding:14px 16px; box-shadow:4px 4px 0 #1A1A1A; margin:16px 0; font-size:15.5px;}
+  .hook b{color:#0E8C77;}
+
+  /* fechamento */
+  .end{background:#1A1A1A; color:#FFF7E6; border-radius:18px; padding:26px 22px; margin:40px 0 0; text-align:center;}
+  .end .big{font-family:'Baloo 2'; font-weight:800; font-size:20px; line-height:1.3; color:#FFC93C;}
+  .end p{color:#F0EAD8;}
+
+  .wcta{display:flex; gap:14px; align-items:center; text-decoration:none; color:#fff;
+    background:#25D366; border:3px solid #1A1A1A; border-radius:16px; padding:15px 18px;
+    box-shadow:4px 4px 0 #1A1A1A; margin:24px 0 0;}
+  .wcta .wic{flex:0 0 46px; height:46px; background:#fff; border:3px solid #1A1A1A; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;}
+  .wcta .wt{font-family:'Baloo 2'; font-weight:800; font-size:17px; line-height:1.15; color:#fff;}
+  .wcta .ws{font-size:13.5px; font-weight:700; color:rgba(255,255,255,.92);}
+
+  footer{text-align:center; margin-top:26px; font-family:'Baloo 2'; font-weight:700; color:#B0A890; font-size:14px;}
+
+  /* toolbar */
+  .bar{position:fixed; bottom:20px; left:50%; transform:translateX(-50%); z-index:50;
+    background:#fff; border:3px solid #1A1A1A; border-radius:40px; padding:8px 10px 8px 18px;
+    display:flex; gap:10px; align-items:center; box-shadow:4px 4px 0 #1A1A1A;}
+  .bar span{font-family:'Baloo 2'; font-weight:700; font-size:13.5px;}
+  .bar button{font-family:'Baloo 2'; font-weight:800; font-size:14px; cursor:pointer;
+    border:3px solid #1A1A1A; border-radius:30px; padding:8px 18px; background:#FFC93C; color:#1A1A1A;
+    box-shadow:2px 2px 0 #1A1A1A;}
+  .bar button:active{transform:translate(2px,2px); box-shadow:none;}
+
+  @media print{
+    body{background:#fff; padding:0;}
+    .bar{display:none;}
+    .sec{break-inside:avoid;}
+    .prompt,.coringa,.el,.verb,.check,.cmp .box,.hook{box-shadow:none;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <span class="tag">Brinde do Workshop IA para Professores · @profalexandrino</span>
+    <h1>MANUAL DE <span class="p">PROMPTS</span></h1>
+    <p class="lead">Como conversar melhor com a IA para ensinar, planejar e criar.</p>
+  </header>
+
+  <div class="hook">
+    Continuando o nosso workshop: aqui a IA entra <b>a serviço do seu objetivo</b> — nunca no lugar dele. Estes prompts funcionam em qualquer IA de conversa: <b>ChatGPT, Claude ou Gemini</b>. É só colar.
+  </div>
+
+  <p class="big">Existe uma diferença entre <b>pedir algo para uma IA</b> e <b>saber dar uma boa instrução</b>. A qualidade da resposta começa na qualidade do pedido. Você não precisa decorar fórmulas — só responder a uma pergunta:</p>
+  <div class="coringa"><div class="line k" style="font-size:17px;">“O que a IA precisa saber para conseguir me ajudar de verdade?”</div></div>
+
+  <!-- 1 -->
+  <section class="sec">
+    <div class="shead"><div class="snum n-sun">1</div><div class="stitle">O que é um prompt?</div></div>
+    <p>Prompt é a instrução que você dá à IA. A diferença entre um pedido fraco e um forte não está em palavras mágicas — está em <b>dar informação suficiente pra IA entender o problema</b>.</p>
+    <div class="cmp">
+      <div class="box bad"><span class="h">✗ pedido fraco</span>“Crie uma atividade sobre frações.”</div>
+      <div class="box good"><span class="h">✓ pedido forte</span>“Atue como professor de Matemática. Preparo uma aula pra uma turma de 5º ano que já conhece números naturais, mas tem dificuldade em ver frações como parte de um todo. Crie uma atividade prática de 30 min com materiais simples, para que representem e comparem frações. Organize em objetivo, materiais, passo a passo e como verificar a aprendizagem.”</div>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section class="sec">
+    <div class="shead"><div class="snum n-coral">2</div><div class="stitle">A anatomia de um bom prompt</div></div>
+    <p>Pense em <b>7 elementos</b>. Você não precisa usar todos sempre — só os que importam pra cada situação.</p>
+    <div class="els">
+      <div class="el"><div class="k">1 · Papel</div><div class="q">Quem a IA deve ser?</div><div class="ex">“Atue como professor de Ciências…”</div></div>
+      <div class="el"><div class="k">2 · Contexto</div><div class="q">Qual é a situação?</div><div class="ex">“Preparo uma aula pro 7º ano…”</div></div>
+      <div class="el"><div class="k">3 · Público</div><div class="q">Pra quem é?</div><div class="ex">“Estudantes de 12 a 13 anos…”</div></div>
+      <div class="el"><div class="k">4 · Objetivo</div><div class="q">O que quer alcançar?</div><div class="ex">“Quero que compreendam…”</div></div>
+      <div class="el"><div class="k">5 · Tarefa</div><div class="q">O que a IA deve fazer?</div><div class="ex">“Crie uma atividade…”</div></div>
+      <div class="el"><div class="k">6 · Restrições</div><div class="q">O que respeitar?</div><div class="ex">“30 min, sem tecnologia…”</div></div>
+      <div class="el"><div class="k">7 · Formato</div><div class="q">Como quer receber?</div><div class="ex">“Em etapas, com avaliação…”</div></div>
+    </div>
+    <div class="formula">PAPEL + CONTEXTO + PÚBLICO + OBJETIVO<br>+ TAREFA + RESTRIÇÕES + FORMATO</div>
+  </section>
+
+  <!-- 3 -->
+  <section class="sec">
+    <div class="shead"><div class="snum n-teal">3</div><div class="stitle">Do pedido ao prompt</div></div>
+    <p>Veja o mesmo pedido evoluir. O que muda não é o tamanho — é a <b>quantidade de informação útil</b>.</p>
+    <div class="prompt"><span class="lbl">nível 1 · genérico</span>Crie uma aula sobre meio ambiente.</div>
+    <div class="prompt"><span class="lbl">nível 2 · com contexto</span>Crie uma aula de 50 min sobre meio ambiente para uma turma de 6º ano.</div>
+    <div class="prompt"><span class="lbl">nível 3 · bem estruturado</span>Atue como professor de Ciências e especialista em metodologias ativas. Preparo uma aula de 50 min para uma turma de 6º ano com 30 estudantes. Eles conhecem reciclagem, mas têm dificuldade em relacionar consumo e produção de resíduos. Quero que compreendam essa relação e saibam identificar soluções para problemas ambientais do cotidiano. Crie uma aula prática, sem internet. Organize em: objetivo, introdução, desenvolvimento, atividade principal, fechamento e avaliação rápida.</div>
+    <p><b>O segredo não é escrever mais — é escrever mais específico.</b></p>
+  </section>
+
+  <!-- 4 -->
+  <section class="sec">
+    <div class="shead"><div class="snum n-grape">4</div><div class="stitle">Cinco regras que fazem diferença</div></div>
+    <div class="rule c1"><div class="rt">1. Dê contexto</div>A IA não conhece sua turma. “Minha turma tem dificuldade de leitura” vale muito mais que “crie uma atividade”.</div>
+    <div class="rule c2"><div class="rt">2. Diga o objetivo</div>“Quero que os alunos consigam argumentar…” é melhor que “trabalhe argumentação”.</div>
+    <div class="rule c3"><div class="rt">3. Defina limites</div>Tempo, idade, recursos, quantidade. “Tenho 40 min e não posso usar celular.”</div>
+    <div class="rule c4"><div class="rt">4. Diga como quer a resposta</div>“Em tabela.” “Em etapas.” “Com linguagem pra alunos de 10 anos.”</div>
+    <div class="rule c5"><div class="rt">5. Continue a conversa</div>O prompt não precisa nascer perfeito. “Gostei, mas ficou difícil pra minha turma — simplifique sem mudar o objetivo.” <b>IA é conversa, não formulário.</b></div>
+  </section>
+
+  <!-- 5 -->
+  <section class="sec">
+    <div class="shead"><div class="snum n-sun">5</div><div class="stitle">Prompts para o dia a dia</div></div>
+    <p>Modelos pra você adaptar. Troque o que está <span class="ph">destacado</span> pela sua realidade.</p>
+
+    <div class="prompt"><span class="lbl">1 · planejar uma aula</span>
+    <b>Atue como</b> professor experiente da Educação Básica. <b>Contexto:</b> preparo uma aula pra uma turma de <span class="ph">ano/série</span>, com cerca de <span class="ph">nº</span> estudantes; a turma <span class="ph">característica importante</span>. <b>Objetivo:</b> que sejam capazes de <span class="ph">objetivo</span>. <b>Tarefa:</b> planeje uma aula sobre <span class="ph">tema</span>. <b>Restrições:</b> tenho <span class="ph">tempo</span> e disponho de <span class="ph">recursos</span>. <b>Formato:</b> objetivo, conhecimentos prévios, desenvolvimento, atividade principal, fechamento e como verificar a aprendizagem.</div>
+
+    <div class="prompt"><span class="lbl">2 · criar uma atividade</span>
+    <b>Atue como</b> professor especialista em aprendizagem ativa. <b>Contexto:</b> trabalho <span class="ph">tema</span> com uma turma de <span class="ph">ano/série</span>; os estudantes <span class="ph">característica</span>. <b>Objetivo:</b> que compreendam/apliquem <span class="ph">objetivo</span>. <b>Tarefa:</b> crie uma atividade que coloque os estudantes como participantes ativos. <b>Restrições:</b> duração de <span class="ph">tempo</span>, usando <span class="ph">recursos</span>, em sala comum. <b>Formato:</b> objetivo, materiais, passo a passo e avaliação.</div>
+
+    <div class="prompt"><span class="lbl">3 · criar uma avaliação</span>
+    <b>Atue como</b> especialista em avaliação da aprendizagem. <b>Contexto:</b> preciso avaliar estudantes do <span class="ph">ano/série</span> após trabalharmos <span class="ph">tema</span>. <b>Objetivo:</b> verificar se conseguem <span class="ph">objetivo</span>. <b>Tarefa:</b> crie uma avaliação com <span class="ph">nº</span> questões. <b>Restrições:</b> misture níveis de dificuldade e priorize compreensão e aplicação, não só memorização. <b>Formato:</b> as questões e, ao final, o gabarito com breve justificativa.</div>
+
+    <div class="prompt"><span class="lbl">4 · adaptar uma atividade</span>
+    <b>Atue como</b> professor especialista em diferenciação pedagógica. <b>Contexto:</b> turma de <span class="ph">ano/série</span> com diferentes níveis. <b>Objetivo:</b> manter o mesmo objetivo da atividade original. <b>Tarefa:</b> analise e adapte a atividade abaixo: <span class="ph">cole a atividade</span>. <b>Restrições:</b> não simplifique o objetivo; adapte instruções, apoio e complexidade. <b>Formato:</b> resumo da original, pontos a adaptar e a nova versão.</div>
+
+    <div class="prompt"><span class="lbl">5 · criar um projeto</span>
+    <b>Atue como</b> designer de projetos educacionais. <b>Contexto:</b> quero um projeto com estudantes do <span class="ph">ano/série</span> sobre <span class="ph">tema</span>. <b>Objetivo:</b> desenvolver <span class="ph">objetivo/habilidade</span>. <b>Tarefa:</b> transforme em um projeto interdisciplinar. <b>Restrições:</b> duração de <span class="ph">período</span>, envolvendo <span class="ph">disciplinas</span> e usando <span class="ph">recursos</span>. <b>Formato:</b> pergunta norteadora, objetivos, etapas, produto final e avaliação.</div>
+
+    <div class="hook">Lembra do projeto que você começou a montar no <b>workshop</b>? Use este prompt 5 pra desenvolver ele com calma — a IA vira a parceira que ajuda a dar forma ao que <b>você</b> já decidiu.</div>
+  </section>
+
+  <!-- 6 -->
+  <section class="sec">
+    <div class="shead"><div class="snum n-coral">6</div><div class="stitle">Peça pra IA perguntar</div></div>
+    <p>Nem sempre você tem tudo pra montar um bom prompt. Em vez de imaginar tudo, deixe a IA investigar:</p>
+    <div class="prompt">Antes de criar a proposta, faça até 5 perguntas que você considera necessárias para entender melhor minha turma, meu objetivo e minhas limitações. Depois que eu responder, desenvolva a proposta.</div>
+    <p>Isso transforma a IA de uma máquina que só responde em uma parceira que <b>ajuda a estruturar o problema</b>.</p>
+  </section>
+
+  <!-- 7 -->
+  <section class="sec">
+    <div class="shead"><div class="snum n-teal">7</div><div class="stitle">Não gostou? Não comece do zero</div></div>
+    <p>Trabalhe por refinamento — é aí que a IA rende de verdade.</p>
+    <div class="refine">
+      <div class="item"><span class="cond">Ficou genérico?</span><div class="say">“Torne mais específico pra uma turma de 6º ano com dificuldade de leitura.”</div></div>
+      <div class="item"><span class="cond">Ficou difícil demais?</span><div class="say">“Simplifique mantendo o mesmo objetivo de aprendizagem.”</div></div>
+      <div class="item"><span class="cond">Ficou fácil demais?</span><div class="say">“Aumente o desafio sem alterar o objetivo.”</div></div>
+      <div class="item"><span class="cond">Ficou teórico?</span><div class="say">“Transforme numa experiência prática pros estudantes.”</div></div>
+      <div class="item"><span class="cond">Quer opções?</span><div class="say">“Dê três alternativas diferentes, sem repetir a estrutura.”</div></div>
+      <div class="item"><span class="cond">Quer uma crítica?</span><div class="say">“Analise como um coordenador pedagógico: 3 pontos fortes e 3 a melhorar.”</div></div>
+      <div class="item"><span class="cond">Quer melhorar seu próprio prompt?</span><div class="say">“Diga que informações faltam pra uma resposta melhor e reescreva o prompt.”</div></div>
+    </div>
+  </section>
+
+  <!-- 8 -->
+  <section class="sec">
+    <div class="shead"><div class="snum n-grape">8</div><div class="stitle">O prompt coringa</div></div>
+    <p>Quando não souber por onde começar, parta deste — e corte o que não fizer diferença:</p>
+    <div class="coringa">
+      <div class="line"><span class="k">Atue como</span> <span class="ph">papel/especialista</span>.</div>
+      <div class="line"><span class="k">Contexto:</span> <span class="ph">a situação</span>.</div>
+      <div class="line"><span class="k">Público:</span> <span class="ph">pra quem é</span>.</div>
+      <div class="line"><span class="k">Objetivo:</span> <span class="ph">o que quer alcançar</span>.</div>
+      <div class="line"><span class="k">Tarefa:</span> <span class="ph">o que a IA deve fazer</span>.</div>
+      <div class="line"><span class="k">Restrições:</span> <span class="ph">tempo, recursos, nível, quantidade</span>.</div>
+      <div class="line"><span class="k">Formato:</span> <span class="ph">como quer receber</span>.</div>
+      <div class="line" style="margin-top:12px;">Antes de finalizar, revise e verifique se a resposta atende ao contexto, ao público e ao objetivo.</div>
+    </div>
+  </section>
+
+  <!-- 9 -->
+  <section class="sec">
+    <div class="shead"><div class="snum n-coral">9</div><div class="stitle">IA como parceira, não oráculo</div></div>
+    <p>Uma resposta bem escrita pode estar errada. A IA inventa informação, erra dados, reproduz vieses. Por isso:</p>
+    <div class="verbs">
+      <div class="verb"><div class="v">Verifique</div><div class="t">informações importantes antes de usar.</div></div>
+      <div class="verb"><div class="v">Revise</div><div class="t">materiais antes de entregar aos alunos.</div></div>
+      <div class="verb"><div class="v">Proteja</div><div class="t">dados pessoais dos estudantes.</div></div>
+      <div class="verb"><div class="v">Adapte</div><div class="t">à realidade da sua escola e turma.</div></div>
+    </div>
+    <div class="hook" style="background:#FFF3CC;"><b style="color:#1A1A1A;">A IA ajuda a produzir. O professor continua responsável por decidir.</b></div>
+  </section>
+
+  <!-- 10 -->
+  <section class="sec">
+    <div class="shead"><div class="snum n-teal">10</div><div class="stitle">Checklist rápido</div></div>
+    <p>Antes de enviar um prompt, pergunte:</p>
+    <div class="check">
+      <div class="ci"><span class="cb"></span>Expliquei o que preciso?</div>
+      <div class="ci"><span class="cb"></span>Dei o contexto necessário?</div>
+      <div class="ci"><span class="cb"></span>Informei pra quem é?</div>
+      <div class="ci"><span class="cb"></span>Expliquei o objetivo?</div>
+      <div class="ci"><span class="cb"></span>Defini alguma restrição importante?</div>
+      <div class="ci"><span class="cb"></span>Disse como quero a resposta?</div>
+      <div class="ci"><span class="cb"></span>Preciso dar um exemplo?</div>
+      <div class="ci"><span class="cb"></span>A resposta vai precisar de revisão?</div>
+    </div>
+  </section>
+
+  <div class="end">
+    <p class="big">Você não precisa aprender a escrever o prompt perfeito.<br>Precisa aprender a fazer pedidos melhores.</p>
+    <p style="margin-top:14px;">Comece simples. Dê contexto. Explique o objetivo. Converse. Questione. Peça outra versão. Revise. Adapte.</p>
+    <p style="margin-top:14px;"><b style="color:#FF6B6B;">Não entregue à IA a responsabilidade de ser professor.<br>Use a IA para potencializar o professor que você já é.</b></p>
+  </div>
+
+  <a class="wcta" href="https://wa.me/5531984779247" target="_blank" rel="noopener">
+    <span class="wic"><svg viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 0 0-7.7 13.6L3 21l4.5-1.2A9 9 0 1 0 12 3z"/><path d="M8.5 8.5c0 4 3 7 6.5 7 .8 0 1.3-.6 1.3-1.2l-1.8-1.1-1 .9c-1.2-.5-2.2-1.5-2.7-2.7l.9-1L10.6 7c-.6 0-1.2.5-1.2 1.3z" fill="#1A1A1A" stroke="none"/></svg></span>
+    <span><span class="wt">Ficou com alguma dúvida? Vamos conversar.</span><br><span class="ws">Chama no WhatsApp · @profalexandrino</span></span>
+  </a>
+
+  <footer>Manual de Prompts para Professores · Prof. Alexandrino · Workshop IA</footer>
+</div>
+
+<div class="bar">
+  <span>Salve ou imprima em PDF</span>
+  <button onclick="window.print()">Imprimir / PDF</button>
+</div>
+</body>
+</html>
